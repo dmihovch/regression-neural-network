@@ -125,7 +125,18 @@ matrix_t* matrix_mult(matrix_t* a, matrix_t* b){
     if(c==NULL){
         return NULL;
     }
-    float* c_arr = c->data;
+
+    int ret = matrix_mult_loop_handler(c,a,b,shared_dimension_size_ab);
+
+    if(ret){
+        matrix_free(c);
+        return NULL;
+    }
+
+    return c;
+}
+
+int matrix_mult_loop_handler(matrix_t* c, matrix_t* a, matrix_t* b, const int shared_dimension_size_ab){
     float* a_arr;
     float* b_arr;
 
@@ -134,36 +145,25 @@ matrix_t* matrix_mult(matrix_t* a, matrix_t* b){
 
         if(a_arr == NULL){
             matrix_free(c);
-            return NULL;
+            return 1;
         }
-
         for(int j = 0; j< b->cols; j++){
             b_arr = matrix_get_col(b,j);
 
             if(b_arr == NULL){
                 free(a_arr);
                 matrix_free(c);
-                return NULL;
+                return 1;
             }
             float sum = 0.;
             for(int k = 0; k < shared_dimension_size_ab; ++k){
                 sum += ((a_arr[k]) * (b_arr[k]));
-
-                //remove for prod
-                printf("a_arr[%d]: %.2f\nb_arr[%d]: %.2f\n",k,a_arr[k],k,b_arr[k]);
-
-
             }
-
-            //remove for prod
-            printf("\n");
-
             matrix_write_to_index(c,sum,i,j);
             free(b_arr);
         }
         free(a_arr);
     }
 
-
-    return c;
+    return 0;
 }
