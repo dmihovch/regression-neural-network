@@ -1,0 +1,38 @@
+#include "../include/debug.h"
+
+void matrix_print_rowcol(float* arr, int size,int flag){
+    int i = 0;
+    for(;i<size;++i){
+        printf("[%.2f]",arr[i]);
+        if(!flag){
+            printf("\n");
+        }
+    }
+    printf("\n");
+}
+
+
+void matrix_print(const matrix_t *m){
+
+    const int cols = m->cols;
+    const int mat_size = m->rows * cols;
+    int i = 0;
+    float* d = m->data;
+    for(;i<mat_size;++i){
+        if(i%cols == 0){
+            printf("\n");
+        }
+        printf("[%0.2f] ",d[i]);
+    }
+    printf("\n");
+}
+
+
+void matrix_set_linear_range(matrix_t* m){
+    int i = 0;
+    const int num_elem = m->cols * m->rows;
+    float* arr = m->data;
+    for(; i<num_elem; ++i){
+        arr[i] = (float)i;
+    }
+}
