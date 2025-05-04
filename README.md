@@ -9,3 +9,7 @@ design choices:
 memory:
     1. caller of function needs to check if matrix_t* is valid
     2. user of matrix_t->data needs to make sure data is valid
+
+
+must link with -lm to link math library
+    might implement my own expf later i dont feel like linking

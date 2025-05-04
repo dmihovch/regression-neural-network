@@ -21,6 +21,12 @@ int main(int argc, char* argv[]){
     if(mat3 != NULL){
         matrix_print(mat3);
     }
+
+    matrix_t* mat4 = matrix_transpose(mat);
+    if(mat4 != NULL){
+        matrix_print(mat4);
+    }
+    matrix_free(mat4);
     matrix_free(mat3);
     matrix_free(mat2);
     matrix_free(mat);
