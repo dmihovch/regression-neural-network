@@ -63,14 +63,8 @@ to make sure matrix and matrix data are not null
 
 
 
-float* matrix_index(matrix_t* m, int row, int col){
-    if(m == NULL || m->data == NULL){
-        return NULL;
-    }
-    if(row < 0 || col < 0 || row >= m->rows || col >= m->cols){
-        return NULL;
-    }
-    return &m->data[row * m->cols + col];
+float matrix_index(matrix_t* m, int row, int col){
+    return m->data[row * m->cols + col];
 }
 
 //need to free
@@ -84,13 +78,8 @@ float* matrix_get_row(matrix_t* m, int row){
         return NULL;
     }
     int i = 0;
-    float* xi;
     for(;i<cols;++i){
-        if((xi=matrix_index(m,row,i))==NULL){
-            free(arr);
-            return NULL;
-        }
-        arr[i] = *xi;
+        arr[i] = matrix_index(m,row,i);
     }
     return arr;
 }
@@ -105,13 +94,8 @@ float* matrix_get_col(matrix_t* m, int col){
         return NULL;
     }
     int i = 0;
-    float* xi;
     for(;i<rows;++i){
-        if((xi=matrix_index(m,i,col))==NULL){
-            free(arr);
-            return NULL;
-        }
-        arr[i] = *xi;
+        arr[i] = matrix_index(m,i,col);
     }
     return arr;
 }
@@ -233,14 +217,10 @@ matrix_t* matrix_transpose(matrix_t* m){
     const int mt_cols = mt->cols;
 
     int i  = 0;
-    float* xi;
     for(; i<m_rows; ++i){
         int j = 0;
         for(; j<m_cols; ++j){
-            if((xi=matrix_index(m,i,j))==NULL){
-                return NULL;
-            }
-            mt_arr[j * mt_cols + i] = *xi;
+            mt_arr[j * mt_cols + i] = matrix_index(m,i,j);
         }
     }
 
@@ -287,5 +267,21 @@ void matrix_hadamard(matrix_t* a, matrix_t*b, matrix_t* out){
     float* out_arr = out->data;
     for(;i<size; ++i){
         out_arr[i] = a_arr[i] * b_arr[i];
+    }
+}
+
+void matrix_add_bias(matrix_t* z, const matrix_t* bias){
+    float* b = bias->data;
+    const int rows = z->rows;
+    const int cols = z->cols;
+
+    float xi_b;
+    int i = 0;
+    for(;i< rows; ++i){
+        int j = 0;
+        for(;j<cols;++j){
+            xi_b = matrix_index(z,i,j) + b[i];
+            matrix_write_to_index(z, xi_b, i, j);
+        }
     }
 }

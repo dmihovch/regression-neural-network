@@ -20,7 +20,7 @@ matrix_t* matrix_alloc(int rows, int cols);
 void matrix_free(matrix_t* m);
 matrix_t* matrix_mult(matrix_t* a, matrix_t* b);
 void matrix_print(const matrix_t* m);
-float* matrix_index(matrix_t* m,int r, int c);
+float matrix_index(matrix_t* m,int row, int col);
 void matrix_set_linear_range(matrix_t* m);
 float* matrix_get_row(matrix_t* m, int row);
 float* matrix_get_col(matrix_t* m, int col);
@@ -31,8 +31,7 @@ void matrix_add(matrix_t* a, matrix_t* b, matrix_t* out);
 void matrix_sub(matrix_t* a, matrix_t* b, matrix_t* out);
 void matrix_scalar_mult(matrix_t* a, float scalar);
 void matrix_hadamard(matrix_t* a, matrix_t*b, matrix_t* out);
-
-
+void matrix_add_bias(matrix_t* z, const matrix_t* bias);
 /*
 
 functions not exposed, they do not need to null check inputs

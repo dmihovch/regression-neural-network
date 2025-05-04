@@ -1,5 +1,6 @@
 #pragma once
 #include "matrix.h"
+#include <time.h>
 void shuffle_rows(matrix_t* a, matrix_t* b);
 void assert_matrix_shape(matrix_t* a, matrix_t* b);
 float randf(); //returns a random float [0,1)
