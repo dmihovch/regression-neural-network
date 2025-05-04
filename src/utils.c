@@ -6,6 +6,5 @@ float derivative(float (*p_act_func)(float), float x, float h_step){
 }
 
 float randf(){
-    srand(time(NULL));
     return (float)rand() / ((float)RAND_MAX+1.);
 }

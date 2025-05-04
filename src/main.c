@@ -8,6 +8,8 @@
 #include "../include/loss.h"
 
 int main(int argc, char* argv[]){
+
+    srand(time(NULL));
     // Set up an input matrix: 2 samples, 3 features each
         matrix_t* input = matrix_alloc(2, 3);
         if (!input) return 1;
@@ -22,6 +24,11 @@ int main(int argc, char* argv[]){
             matrix_free(input);
             return 1;
         }
+
+
+        matrix_t* biases = matrix_alloc(4, 4);
+        matrix_print(biases);
+        matrix_free(biases);
 
         // Forward pass
         layer_forward(l1, input);

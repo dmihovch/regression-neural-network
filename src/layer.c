@@ -1,4 +1,5 @@
 #include "../include/layer.h"
+#include <math.h>
 
 //mallocs a layer
 layer_t* layer_init(int input_size, int output_size, activation_type act){
@@ -19,8 +20,9 @@ layer_t* layer_init(int input_size, int output_size, activation_type act){
         return NULL;
     }
     l->act = act;
-    init_randf_vals(l->weights);
-    init_randf_vals(l->biases);
+
+    init_weights(l->weights, l->act, input_size, output_size);
+    init_bias(l->biases, l->act);
 
 
     return l;
@@ -57,5 +59,46 @@ void init_randf_vals(matrix_t* m){
     int i = 0;
     for(;i<size;++i){
         arr[i] = randf();
+    }
+}
+
+
+void init_bias(matrix_t* m, activation_type act){
+    if(act == A_RELU){
+        float* arr = m->data;
+        const int size = m->rows*m->cols;
+        int i = 0;
+        for(;i<size;++i){
+            arr[i] = 0.01;
+        }
+    }
+}
+
+
+void init_weights(matrix_t* m, activation_type act, int inputs, int outputs){
+    if(act == A_RELU){
+        init_weights_relu(m, inputs);
+    }
+    if(act == A_SIGMOID){
+        init_weights_sigmoid(m, inputs, outputs);
+    }
+    if(act == A_NONE){
+        init_randf_vals(m);
+    }
+}
+void init_weights_relu(matrix_t* m, int inputs){
+    float* arr = m->data;
+    //todo
+
+}
+void init_weights_sigmoid(matrix_t* m, int inputs, int outputs){
+    float* arr = m->data;
+    const float min = -sqrtf(6./(inputs+outputs));
+    const float max = sqrtf(6./(inputs+outputs));
+    const int size = m->rows*m->cols;
+    const float mult = min + (max - min);
+    int i = 0;
+    for(;i<size;++i){
+        arr[i] = mult * randf();
     }
 }
