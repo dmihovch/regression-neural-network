@@ -25,11 +25,6 @@ int main(int argc, char* argv[]){
             return 1;
         }
 
-
-        matrix_t* biases = matrix_alloc(4, 4);
-        matrix_print(biases);
-        matrix_free(biases);
-
         // Forward pass
         layer_forward(l1, input);
         printf("\nLayer Output:\n");

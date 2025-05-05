@@ -77,7 +77,8 @@ void init_bias(matrix_t* m, activation_type act){
 
 void init_weights(matrix_t* m, activation_type act, int inputs, int outputs){
     if(act == A_RELU){
-        init_weights_relu(m, inputs);
+        const float sigma = sqrtf(2./inputs);
+        init_weights_relu(m, inputs, 0.,sigma); //mu,sigma for reLu
     }
     if(act == A_SIGMOID){
         init_weights_sigmoid(m, inputs, outputs);
@@ -86,11 +87,28 @@ void init_weights(matrix_t* m, activation_type act, int inputs, int outputs){
         init_randf_vals(m);
     }
 }
-void init_weights_relu(matrix_t* m, int inputs){
+void init_weights_relu(matrix_t* m, int inputs, float mu, float sigma){
     float* arr = m->data;
-    //todo
-
+    const int size = m->rows*m->cols;
+    int i = 0;
+    for(;i<size;++i){
+        arr[i] = box_muller_tran(mu,sigma);
+    }
 }
+
+float box_muller_tran(float mu, float sigma){
+    float u1 = 0.;
+    while(u1 == 0.){
+        u1 = randf();
+    }
+    float u2 = randf();
+
+    const float mult1 = sqrtf(-2*log(u1));
+    const float mult2 = cosf(2*M_PI*u2);
+    const float z = mult1*mult2;
+    return mu + sigma * z;
+}
+
 void init_weights_sigmoid(matrix_t* m, int inputs, int outputs){
     float* arr = m->data;
     const float min = -sqrtf(6./(inputs+outputs));
