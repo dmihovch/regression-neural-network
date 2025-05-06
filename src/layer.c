@@ -41,7 +41,10 @@ void layer_forward(layer_t* layer, matrix_t* input){
         layer->output = NULL;
         return;
     }
+
     matrix_add_bias(w_in, b);
+    printf("Output after biases:\n");
+    matrix_print(w_in);
     if(act == A_RELU){
         matrix_apply_activation_ip(w_in, relu);
     }

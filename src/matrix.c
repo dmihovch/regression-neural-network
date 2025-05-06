@@ -1,4 +1,5 @@
 #include "../include/matrix.h"
+#include <time.h>
 
 
 
@@ -102,6 +103,7 @@ double* matrix_get_col(matrix_t* m, int col){
 
 
 void matrix_write_to_index(matrix_t* m,double val, int row, int col){
+    //printf("m->data[%d]\n",(row*m->cols+col));
     m->data[row*m->cols+col] = val;
 }
 
@@ -117,6 +119,7 @@ matrix math :()
 //thjis be an ugly ass function
 matrix_t* matrix_mult(matrix_t* a, matrix_t* b){
 
+    clock_t start  = clock();
     //gotta break this up at some point
 
     if(a == NULL || b == NULL || a->data == NULL || b->data == NULL){
@@ -138,6 +141,11 @@ matrix_t* matrix_mult(matrix_t* a, matrix_t* b){
     }
 
     matrix_mult_loop_handler(c,a,b,shared_dimension_size_ab);
+
+    clock_t end = clock();
+
+    double time = (double)(end-start) / CLOCKS_PER_SEC;
+    printf("MATRIX MULT TIME:\n%0.5f seconds\n",time);
     return c;
 }
 
@@ -148,30 +156,14 @@ void matrix_mult_loop_handler(matrix_t* c, matrix_t* a, matrix_t* b, const int s
     double* b_arr;
 
     for(int i = 0; i< a->rows; i++){
-        a_arr = matrix_get_row(a,i);
-
-        if(a_arr == NULL){
-            matrix_free(c);
-            c = NULL;
-            return;
-        }
         for(int j = 0; j< b->cols; j++){
-            b_arr = matrix_get_col(b,j);
-
-            if(b_arr == NULL){
-                free(a_arr);
-                matrix_free(c);
-                c = NULL;
-                return;
-            }
             double sum = 0.;
             for(int k = 0; k < shared_dimension_size_ab; ++k){
-                sum += ((a_arr[k]) * (b_arr[k]));
+                sum += matrix_index(a,i,k) * matrix_index(b,k,j);
             }
+            //printf("c->rows:%d\nc->cols:%d\ni:%d\nj:%d\n",c->rows,c->cols,i,j);
             matrix_write_to_index(c,sum,i,j);
-            free(b_arr);
         }
-        free(a_arr);
     }
 
     return;

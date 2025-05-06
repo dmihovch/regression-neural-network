@@ -9,9 +9,12 @@ double drelu(double x){
 }
 
 double sigmoid(double x){
+    //not good for larger values
     return 1. / (1. + exp(-x));
 }
 
 double dsigmoid(double x){
     return derivative(sigmoid, x, HSTEP);
 }
+
+//todo: implement tanh

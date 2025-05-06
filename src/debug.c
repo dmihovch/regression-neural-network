@@ -36,3 +36,12 @@ void matrix_set_linear_range(matrix_t* m){
         arr[i] = (double)i;
     }
 }
+
+void matrix_set_rand_val(matrix_t* m){
+    int i = 0;
+    const int num_elem = m->cols * m->rows;
+    double* arr = m->data;
+    for(; i<num_elem; ++i){
+        arr[i] = randf()*10;
+    }
+}

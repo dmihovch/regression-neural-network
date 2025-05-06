@@ -1,6 +1,8 @@
 #pragma once
 #include <stdlib.h>
 #include <stdio.h>
+#include <pthread.h>
+#include <time.h>
 
 
 typedef struct matrix_t {
@@ -8,8 +10,6 @@ typedef struct matrix_t {
     int cols;
     double* data; //index a value at i,j => data[i * cols + j]
 } matrix_t;
-
-
 
 //if a function in here returns void, it is assumed that the values have been sanitized, and they will not alloc or free any memory
 
