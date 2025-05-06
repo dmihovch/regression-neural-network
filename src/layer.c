@@ -55,7 +55,7 @@ void layer_forward(layer_t* layer, matrix_t* input){
 
 void init_randf_vals(matrix_t* m){
     const int size = m->rows * m->cols;
-    float* arr = m->data;
+    double* arr = m->data;
     int i = 0;
     for(;i<size;++i){
         arr[i] = randf();
@@ -65,7 +65,7 @@ void init_randf_vals(matrix_t* m){
 
 void init_bias(matrix_t* m, activation_type act){
     if(act == A_RELU){
-        float* arr = m->data;
+        double* arr = m->data;
         const int size = m->rows*m->cols;
         int i = 0;
         for(;i<size;++i){
@@ -77,7 +77,7 @@ void init_bias(matrix_t* m, activation_type act){
 
 void init_weights(matrix_t* m, activation_type act, int inputs, int outputs){
     if(act == A_RELU){
-        const float sigma = sqrtf(2./inputs);
+        const double sigma = sqrt(2./inputs);
         init_weights_relu(m, inputs, 0.,sigma); //mu,sigma for reLu
     }
     if(act == A_SIGMOID){
@@ -87,8 +87,8 @@ void init_weights(matrix_t* m, activation_type act, int inputs, int outputs){
         init_randf_vals(m);
     }
 }
-void init_weights_relu(matrix_t* m, int inputs, float mu, float sigma){
-    float* arr = m->data;
+void init_weights_relu(matrix_t* m, int inputs, double mu, double sigma){
+    double* arr = m->data;
     const int size = m->rows*m->cols;
     int i = 0;
     for(;i<size;++i){
@@ -96,25 +96,25 @@ void init_weights_relu(matrix_t* m, int inputs, float mu, float sigma){
     }
 }
 
-float box_muller_tran(float mu, float sigma){
-    float u1 = 0.;
+double box_muller_tran(double mu, double sigma){
+    double u1 = 0.;
     while(u1 == 0.){
         u1 = randf();
     }
-    float u2 = randf();
+    double u2 = randf();
 
-    const float mult1 = sqrtf(-2*log(u1));
-    const float mult2 = cosf(2*M_PI*u2);
-    const float z = mult1*mult2;
+    const double mult1 = sqrt(-2*log(u1));
+    const double mult2 = cos(2*M_PI*u2);
+    const double z = mult1*mult2;
     return mu + sigma * z;
 }
 
 void init_weights_sigmoid(matrix_t* m, int inputs, int outputs){
-    float* arr = m->data;
-    const float min = -sqrtf(6./(inputs+outputs));
-    const float max = sqrtf(6./(inputs+outputs));
+    double* arr = m->data;
+    const double min = -sqrt(6./(inputs+outputs));
+    const double max = sqrt(6./(inputs+outputs));
     const int size = m->rows*m->cols;
-    const float mult = min + (max - min);
+    const double mult = min + (max - min);
     int i = 0;
     for(;i<size;++i){
         arr[i] = mult * randf();
