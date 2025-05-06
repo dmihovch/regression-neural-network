@@ -1,17 +1,20 @@
 #include "../include/activation.h"
 
-float relu(float x){
+double relu(double x){
     return x > 0 ? x : 0.;
 }
 
-float drelu(float x){
+double drelu(double x){
     return derivative(relu, x, HSTEP);
 }
 
-float sigmoid(float x){
-    return 1. / (1. + expf(-x));
+double sigmoid(double x){
+    //not good for larger values
+    return 1. / (1. + exp(-x));
 }
 
-float dsigmoid(float x){
+double dsigmoid(double x){
     return derivative(sigmoid, x, HSTEP);
 }
+
+//todo: implement tanh

@@ -2,7 +2,7 @@
 #include <math.h>
 #include "../include/utils.h"
 #define HSTEP 1e-5
-float relu(float x);
-float drelu(float x);
-float sigmoid(float x);
-float dsigmoid(float x);
+double relu(double x);
+double drelu(double x);
+double sigmoid(double x);
+double dsigmoid(double x);

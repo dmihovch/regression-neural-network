@@ -7,19 +7,20 @@
 #include "../include/activation.h"
 #include "../include/loss.h"
 
+
 int main(int argc, char* argv[]){
 
     srand(time(NULL));
     // Set up an input matrix: 2 samples, 3 features each
-        matrix_t* input = matrix_alloc(2, 3);
+        matrix_t* input = matrix_alloc(1000, 1000);
         if (!input) return 1;
 
-        matrix_set_linear_range(input); // fills 0, 1, 2, ..., 5
-        printf("Input:\n");
-        matrix_print(input);
+        matrix_set_rand_val(input); // fills 0, 1, 2, ..., 5
+        //printf("Input:\n");
+        //matrix_print(input);
 
         // Create a single layer: 3 input features -> 2 outputs, using ReLU
-        layer_t* l1 = layer_init(3, 2, A_RELU);
+        layer_t* l1 = layer_init(1000, 1000, A_RELU);
         if (!l1) {
             matrix_free(input);
             return 1;
@@ -27,16 +28,16 @@ int main(int argc, char* argv[]){
 
         // Forward pass
         layer_forward(l1, input);
-        printf("\nLayer Output:\n");
+        //printf("\nLayer Output:\n");
         if(l1->output == NULL){
             return 1;
         }
-        matrix_print(l1->output);
+        //matrix_print(l1->output);
 
-        printf("\nLayer weights:\n");
-        matrix_print(l1->weights);
-        printf("\nLayer biases:\n");
-        matrix_print(l1->biases);
+        //printf("\nLayer weights:\n");
+        //matrix_print(l1->weights);
+        //printf("\nLayer biases:\n");
+        //matrix_print(l1->biases);
 
         // Clean up
         matrix_free(input);
