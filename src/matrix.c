@@ -145,7 +145,7 @@ matrix_t* matrix_mult(matrix_t* a, matrix_t* b){
     clock_t end = clock();
 
     double time = (double)(end-start) / CLOCKS_PER_SEC;
-    printf("MATRIX MULT TIME:\n%0.5f seconds\n",time);
+    printf("MATRIX MULT TIME: %0.5f seconds\n",time);
     return c;
 }
 
@@ -158,7 +158,6 @@ void matrix_mult_loop_handler(matrix_t* c, matrix_t* a, matrix_t* b, const int s
     const int a_rows = a->rows;
     const int a_cols = a->cols;
     const int b_cols = b->cols;
-    const int b_rows = b->rows;
     const int c_cols = c->cols;
     double a_ik;
 
@@ -228,7 +227,6 @@ matrix_t* matrix_transpose(matrix_t* m){
 
     const int m_rows = m->rows;
     const int m_cols = m->cols;
-    const int mt_cols = mt->cols;
 
     int i  = 0;
     for(; i<m_rows; ++i){
