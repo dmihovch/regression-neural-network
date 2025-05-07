@@ -152,22 +152,44 @@ matrix_t* matrix_mult(matrix_t* a, matrix_t* b){
 
 //this is a pure helper function. it can basically be treated as inline code...... I think
 void matrix_mult_loop_handler(matrix_t* c, matrix_t* a, matrix_t* b, const int shared_dimension_size_ab){
-    double* a_arr;
-    double* b_arr;
+    double* a_arr = a->data;
+    double* b_arr = b->data;
+    double* c_arr = c->data;
+    const int a_rows = a->rows;
+    const int a_cols = a->cols;
+    const int b_cols = b->cols;
+    const int b_rows = b->rows;
+    const int c_cols = c->cols;
+    double a_ik;
 
-    for(int i = 0; i< a->rows; i++){
-        for(int j = 0; j< b->cols; j++){
-            double sum = 0.;
-            for(int k = 0; k < shared_dimension_size_ab; ++k){
-                sum += matrix_index(a,i,k) * matrix_index(b,k,j);
+
+
+    for(int i = 0; i<a_rows;++i){
+        for(int k = 0; k < shared_dimension_size_ab; ++k){
+            a_ik = a_arr[i*a_cols+k];
+            for(int j = 0; j<b_cols; ++j){
+                c_arr[i*c_cols+j] += a_ik * b_arr[k*b_cols+j];
             }
-            //printf("c->rows:%d\nc->cols:%d\ni:%d\nj:%d\n",c->rows,c->cols,i,j);
-            matrix_write_to_index(c,sum,i,j);
         }
     }
 
+
+
     return;
 }
+/*
+
+for(int i = 0; i< a->rows; i++){
+    for(int j = 0; j< b->cols; j++){
+        double sum = 0.;
+        for(int k = 0; k < shared_dimension_size_ab; ++k){
+            sum += matrix_index(a,i,k) * matrix_index(b,k,j);
+        }
+        //printf("c->rows:%d\nc->cols:%d\ni:%d\nj:%d\n",c->rows,c->cols,i,j);
+        matrix_write_to_index(c,sum,i,j);
+    }
+}
+*/
 
 
 void matrix_copy(matrix_t* dest, matrix_t* src);
@@ -212,7 +234,7 @@ matrix_t* matrix_transpose(matrix_t* m){
     for(; i<m_rows; ++i){
         int j = 0;
         for(; j<m_cols; ++j){
-            mt_arr[j * mt_cols + i] = matrix_index(m,i,j);
+            mt_arr[j * m_rows + i] = m_arr[i*m_cols+j];
         }
     }
 

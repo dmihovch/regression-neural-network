@@ -55,9 +55,6 @@ void layer_forward(layer_t* layer, matrix_t* input){
     layer->output = w_in;
 }
 
-void layer_backwards(layer_t *layer, matrix_t *grad_output, float learning_rate){
-
-}
 
 
 void init_randf_vals(matrix_t* m){
