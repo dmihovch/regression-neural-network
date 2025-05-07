@@ -158,17 +158,20 @@ void matrix_mult_loop_handler(matrix_t* c, matrix_t* a, matrix_t* b, const int s
     const int a_rows = a->rows;
     const int a_cols = a->cols;
     const int b_cols = b->cols;
+    const int b_rows = b->rows;
     const int c_cols = c->cols;
+    double a_ik;
+
+
 
     for(int i = 0; i<a_rows;++i){
         for(int k = 0; k < shared_dimension_size_ab; ++k){
-            double a_ik = a_arr[i*a_cols+k];
+            a_ik = a_arr[i*a_cols+k];
             for(int j = 0; j<b_cols; ++j){
                 c_arr[i*c_cols+j] += a_ik * b_arr[k*b_cols+j];
             }
         }
     }
-
 
 
 
@@ -231,7 +234,7 @@ matrix_t* matrix_transpose(matrix_t* m){
     for(; i<m_rows; ++i){
         int j = 0;
         for(; j<m_cols; ++j){
-            mt_arr[j * mt_cols + i] = matrix_index(m,i,j);
+            mt_arr[j * m_rows + i] = m_arr[i*m_cols+j];
         }
     }
 
