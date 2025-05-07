@@ -28,7 +28,7 @@ void layer_free(layer_t* layer);
 void init_bias(matrix_t* m, activation_type act);
 
 void init_weights(matrix_t* m, activation_type act, int inputs, int outputs);
-void init_weights_relu(matrix_t* m, int inputs, double mu, double sigma);
+void init_weights_relu(matrix_t* m, double mu, double sigma);
 void init_weights_sigmoid(matrix_t* m, int inputs, int outputs);
 
 void init_randf_vals(matrix_t* m);

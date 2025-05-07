@@ -43,8 +43,6 @@ void layer_forward(layer_t* layer, matrix_t* input){
     }
 
     matrix_add_bias(w_in, b);
-    printf("Output after biases:\n");
-    matrix_print(w_in);
     if(act == A_RELU){
         matrix_apply_activation_ip(w_in, relu);
     }
@@ -82,7 +80,7 @@ void init_bias(matrix_t* m, activation_type act){
 void init_weights(matrix_t* m, activation_type act, int inputs, int outputs){
     if(act == A_RELU){
         const double sigma = sqrt(2./inputs);
-        init_weights_relu(m, inputs, 0.,sigma); //mu,sigma for reLu
+        init_weights_relu(m, 0.,sigma); //mu,sigma for reLu
     }
     if(act == A_SIGMOID){
         init_weights_sigmoid(m, inputs, outputs);
@@ -91,7 +89,7 @@ void init_weights(matrix_t* m, activation_type act, int inputs, int outputs){
         init_randf_vals(m);
     }
 }
-void init_weights_relu(matrix_t* m, int inputs, double mu, double sigma){
+void init_weights_relu(matrix_t* m, double mu, double sigma){
     double* arr = m->data;
     const int size = m->rows*m->cols;
     int i = 0;
