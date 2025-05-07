@@ -11,6 +11,8 @@ typedef struct matrix_t {
     double* data; //index a value at i,j => data[i * cols + j]
 } matrix_t;
 
+
+#include "threading.h"
 //if a function in here returns void, it is assumed that the values have been sanitized, and they will not alloc or free any memory
 
 
@@ -32,6 +34,7 @@ void matrix_sub(matrix_t* a, matrix_t* b, matrix_t* out);
 void matrix_scalar_mult(matrix_t* a, double scalar);
 void matrix_hadamard(matrix_t* a, matrix_t*b, matrix_t* out);
 void matrix_add_bias(matrix_t* z, const matrix_t* bias);
+
 /*
 
 functions not exposed, they do not need to null check inputs
