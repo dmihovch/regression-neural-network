@@ -122,3 +122,48 @@ void init_weights_sigmoid(matrix_t* m, int inputs, int outputs){
         arr[i] = mult * randf();
     }
 }
+
+void layer_free(layer_t *layer){
+
+    if(layer == NULL){
+        return;
+    }
+    if(layer->weights != NULL){
+        matrix_free(layer->weights);
+    }
+    if(layer->biases != NULL){
+        matrix_free(layer->biases);
+    }
+    if(layer->input != NULL){
+        matrix_free(layer->input);
+    }
+    if(layer->output != NULL){
+        matrix_free(layer->output);
+    }
+    if(layer->dweights != NULL){
+        matrix_free(layer->dweights);
+    }
+    if(layer->dbiases != NULL){
+        matrix_free(layer->dbiases);
+    }
+    if(layer->dinputs != NULL){
+        matrix_free(layer->dinputs);
+    }
+    free(layer);
+    return;
+}
+
+
+/*
+typedef struct layer_t {
+    matrix_t* weights;
+    matrix_t* biases;
+    matrix_t* input;
+    matrix_t* output;
+    matrix_t* dweights;
+    matrix_t* dbiases;
+    matrix_t* dinputs;
+    activation_type act;
+} layer_t;
+
+*/

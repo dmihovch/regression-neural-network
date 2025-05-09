@@ -9,31 +9,26 @@
 
 
 int main(/*int argc, char* argv[]*/){
-
     srand(time(NULL));
 
-    // Set up an input matrix: 2 samples, 3 features each
-        matrix_t* input = matrix_alloc(1000, 10000);
-        if (!input) return 1;
+    matrix_t* init = matrix_alloc(100, 50);
+    matrix_set_rand_val(init);
 
-        matrix_set_rand_val(input);
-        layer_t* l1 = layer_init(10000, 1000, A_RELU);
-        if (!l1) {
-            matrix_free(input);
-            return 1;
+    // Set up an input matrix: 2 samples, 3 features each
+    int layer_sizes[5] = {25,75,150,15,1};
+    model_t* model = model_init(50, layer_sizes,A_RELU, 5, 1.1);
+    for(int i = 0; i<5;++i){
+        if(i == 0){
+
+            layer_forward(model->layers[i], init);
+
         }
-        layer_forward(l1, input);
-        if(l1->output == NULL){
-            matrix_free(input);
-            matrix_free(l1->weights);
-            matrix_free(l1->biases);
-            free(l1);
-            return 1;
+        else{
+            layer_forward(model->layers[i], model->layers[i-1]->output);
         }
-        matrix_free(input);
-        matrix_free(l1->output); // forward pass allocates this
-        matrix_free(l1->weights);
-        matrix_free(l1->biases);
-        free(l1);
+
+    }
+    printf("finished layering\n");
+    model_free(model);
     return 0;
 }
