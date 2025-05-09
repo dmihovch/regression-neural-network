@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <pthread.h>
 #include <time.h>
-
+#include "timing.h"
 
 typedef struct matrix_t {
     int rows;

@@ -121,7 +121,7 @@ matrix math :()
 //thjis be an ugly ass function
 matrix_t* matrix_mult(matrix_t* a, matrix_t* b){
 
-    clock_t start  = clock();
+
     //gotta break this up at some point
 
     if(a == NULL || b == NULL || a->data == NULL || b->data == NULL){
@@ -142,18 +142,21 @@ matrix_t* matrix_mult(matrix_t* a, matrix_t* b){
         return NULL;
     }
 
+
     matrix_mult_loop_handler(c,a,b,shared_dimension_size_ab);
 
-    clock_t end = clock();
 
-    double time = (double)(end-start) / CLOCKS_PER_SEC;
-    printf("MATRIX MULT TIME: %0.5f seconds\n",time);
+
+
     return c;
 }
 
 
 //this is a pure helper function. it can basically be treated as inline code...... I think
 void matrix_mult_loop_handler(matrix_t* c, matrix_t* a, matrix_t* b, const int shared_dimension_size_ab){
+
+    double start  = get_time_sec();
+
     const int a_rows = a->rows;
     pthread_t threads[a_rows];
     for(int i = 0; i<a_rows;++i){
@@ -167,6 +170,10 @@ void matrix_mult_loop_handler(matrix_t* c, matrix_t* a, matrix_t* b, const int s
     for(int i = 0; i<a_rows;++i){
         pthread_join(threads[i],NULL);
     }
+
+    double end = get_time_sec();
+    printf("MATRIX MULT TIME: %0.5f seconds\n",end-start);
+
     return;
 }
 

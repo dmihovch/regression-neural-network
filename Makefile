@@ -12,7 +12,8 @@ SRC = \
 	src/utils.c \
 	src/debug.c \
 	src/data.c \
-	src/threading.c
+	src/threading.c \
+	src/timing.c
 
 BIN = model
 
