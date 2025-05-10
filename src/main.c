@@ -21,14 +21,13 @@ int main(/*int argc, char* argv[]*/){
         if(i == 0){
 
             layer_forward(model->layers[i], init);
-
+            matrix_free(init);
         }
         else{
             layer_forward(model->layers[i], model->layers[i-1]->output);
         }
 
     }
-    printf("finished layering\n");
     model_free(model);
     return 0;
 }

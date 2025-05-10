@@ -48,6 +48,7 @@ void matrix_free(matrix_t *m){
     if(m != NULL){
         if(m->data != NULL){
             free(m->data);
+            m->data = NULL;
         }
         free(m);
     }
@@ -177,7 +178,26 @@ void matrix_mult_loop_handler(matrix_t* c, matrix_t* a, matrix_t* b, const int s
 }
 
 
-void matrix_copy(matrix_t* dest, matrix_t* src);
+void matrix_copy(matrix_t* dest, matrix_t* src){
+    if(dest == NULL || dest->data == NULL || src == NULL || src->data == NULL){
+        return;
+    }
+    double* d_arr = dest->data;
+    double* s_arr = src->data;
+    const int rows = src->rows;
+    const int cols = src->cols;
+
+    if(rows != dest->rows || cols != dest->cols){
+        return;
+    }
+    int i = 0;
+    for(;i<rows;++i){
+        int j = 0;
+        for(;j<cols; ++j){
+            d_arr[i*cols+j] = s_arr[i*cols+j];
+        }
+    }
+}
 
 
 void matrix_apply_activation_ip(matrix_t* m, double(*p_act_func)(double)){
@@ -269,17 +289,17 @@ void matrix_hadamard(matrix_t* a, matrix_t*b, matrix_t* out){
 }
 
 void matrix_add_bias(matrix_t* z, const matrix_t* bias){
+
     double* b = bias->data;
     const int rows = z->rows;
     const int cols = z->cols;
-
-    double xi_b;
+    double* z_arr = z->data;
     int i = 0;
     for(;i< rows; ++i){
         int j = 0;
         for(;j<cols;++j){
-            xi_b = matrix_index(z,i,j) + b[i];
-            matrix_write_to_index(z, xi_b, i, j);
+
+            z_arr[i*cols+j] = z_arr[i*cols+j] + b[j];
         }
     }
 }
