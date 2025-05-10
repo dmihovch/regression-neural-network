@@ -1,5 +1,4 @@
 #include "../include/matrix.h"
-#include <bits/pthreadtypes.h>
 #include <pthread.h>
 #include <time.h>
 
