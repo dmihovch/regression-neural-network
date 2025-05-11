@@ -42,6 +42,15 @@ void matrix_set_rand_val(matrix_t* m){
     const int num_elem = m->cols * m->rows;
     double* arr = m->data;
     for(; i<num_elem; ++i){
-        arr[i] = randf()*10;
+        arr[i] = randf();
+    }
+}
+
+void matrix_set_const_val(matrix_t* m, double x){
+    int i = 0;
+    const int num_elem = m->cols * m->rows;
+    double* arr = m->data;
+    for(; i<num_elem; ++i){
+        arr[i] = x;
     }
 }
