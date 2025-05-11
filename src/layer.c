@@ -15,7 +15,7 @@ layer_t* layer_init(int input_size, int output_size, activation_type act){
     }
     l->biases = matrix_alloc(1,output_size);
     if(l->biases == NULL){
-        matrix_free(l->weights); //technically only need to call free here, but I'll just do it for kicks
+        free(l->weights); //technically only need to call free here, but I'll just do it for kicks
         free(l);
         return NULL;
     }
@@ -25,12 +25,31 @@ layer_t* layer_init(int input_size, int output_size, activation_type act){
     init_bias(l->biases, l->act);
 
 
+    l->dbiases = NULL;
+    l->dweights = NULL;
+    l->dinputs = NULL;
+
     return l;
 }
 
 void layer_forward(layer_t* layer, matrix_t* input){
 
-    layer->input = input;
+
+    if(layer->output != NULL){
+        matrix_free(layer->output);
+        layer->output = NULL;
+    }
+
+
+    const int in_rows = input->rows;
+    const int in_cols = input->cols;
+    matrix_t* input_copy = matrix_alloc(in_rows, in_cols);
+    if(input_copy == NULL){
+        return;
+    }
+    matrix_copy(input_copy, input);
+
+    layer->input = input_copy;
     matrix_t* in = layer->input;
     matrix_t* w = layer->weights;
     matrix_t* b = layer->biases;
@@ -46,7 +65,7 @@ void layer_forward(layer_t* layer, matrix_t* input){
     if(act == A_RELU){
         matrix_apply_activation_ip(w_in, relu);
     }
-    if(act == A_SIGMOID){
+    else if(act == A_SIGMOID){
         matrix_apply_activation_ip(w_in,sigmoid);
     }
 
@@ -121,4 +140,41 @@ void init_weights_sigmoid(matrix_t* m, int inputs, int outputs){
     for(;i<size;++i){
         arr[i] = mult * randf();
     }
+}
+
+void layer_free(layer_t *layer){
+
+    if(layer == NULL){
+        return;
+    }
+    if(layer->weights != NULL){
+        matrix_free(layer->weights);
+        layer->weights = NULL;
+    }
+    if(layer->biases != NULL){
+        matrix_free(layer->biases);
+        layer->biases = NULL;
+    }
+    if(layer->input != NULL){
+        matrix_free(layer->input);
+        layer->input = NULL;
+    }
+    if(layer->output != NULL){
+        matrix_free(layer->output);
+        layer->output = NULL;
+    }
+    if(layer->dweights != NULL){
+        matrix_free(layer->dweights);
+        layer->dweights = NULL;
+    }
+    if(layer->dbiases != NULL){
+        matrix_free(layer->dbiases);
+        layer->dbiases = NULL;
+    }
+    if(layer->dinputs != NULL){
+        matrix_free(layer->dinputs);
+        layer->dinputs = NULL;
+    }
+    free(layer);
+    return;
 }
