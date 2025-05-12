@@ -144,10 +144,6 @@ matrix_t* matrix_mult(matrix_t* a, matrix_t* b){
 
 
     matrix_mult_loop_handler(c,a,b,shared_dimension_size_ab);
-
-
-
-
     return c;
 }
 
@@ -170,6 +166,7 @@ void matrix_mult_loop_handler(matrix_t* c, matrix_t* a, matrix_t* b, const int s
     for(int i = 0; i<a_rows;++i){
         pthread_join(threads[i],NULL);
     }
+
 
     double end = get_time_sec();
     printf("MATRIX MULT TIME: %0.5f seconds\n",end-start);
