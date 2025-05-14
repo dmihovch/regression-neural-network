@@ -33,3 +33,15 @@ double mean_squared_error_loss(matrix_t *y_true, matrix_t *y_pred){
 
     return mse/n;
 }
+
+void dmean_squared_error(matrix_t *y_true, matrix_t *y_pred, matrix_t *grad_out){
+    const int size = grad_out->rows*grad_out->cols;
+    const double twoon = 2./size;
+    double* t_arr = y_true->data;
+    double* p_arr = y_pred->data;
+    double* o_arr = grad_out->data;
+    int i = 0;
+    for(;i<size;++i){
+        o_arr[i] = twoon*(p_arr[i]-t_arr[i]);
+    }
+}

@@ -28,6 +28,7 @@ layer_t* layer_init(int input_size, int output_size, activation_type act){
     l->dbiases = NULL;
     l->dweights = NULL;
     l->dinputs = NULL;
+    l->pre_act_z = NULL;
 
     return l;
 }
@@ -62,6 +63,13 @@ void layer_forward(layer_t* layer, matrix_t* input){
     }
 
     matrix_add_bias(w_in, b);
+
+
+    //layer->pre_act_z malloc'd here
+    if(save_pre_activation_z(layer, w_in)){
+        return;
+    }
+
     if(act == A_RELU){
         matrix_apply_activation_ip(w_in, relu);
     }
@@ -70,6 +78,18 @@ void layer_forward(layer_t* layer, matrix_t* input){
     }
 
     layer->output = w_in;
+}
+
+int save_pre_activation_z(layer_t* layer, matrix_t* z){
+
+    matrix_t* pre_act_z_mat = matrix_alloc(z->rows, z->cols);
+    if(pre_act_z_mat == NULL){
+        return 1;
+    }
+
+    matrix_copy(pre_act_z_mat, z);
+    layer->pre_act_z = pre_act_z_mat;
+    return 0;
 }
 
 
@@ -175,6 +195,66 @@ void layer_free(layer_t *layer){
         matrix_free(layer->dinputs);
         layer->dinputs = NULL;
     }
+    if(layer->pre_act_z != NULL){
+        matrix_free(layer->pre_act_z);
+        layer->pre_act_z = NULL;
+    }
     free(layer);
     return;
+}
+
+
+void layer_backwards(layer_t *l, matrix_t *dA, double learning_rate){
+    matrix_t* dZ = activation_backwards(l->pre_act_z, dA, l->act); //modifies l->pre_act_z
+    if(dZ == NULL){
+        return;
+    }
+    matrix_t* t_input = matrix_transpose(l->input);
+    if(t_input == NULL){
+        matrix_free(dZ);
+        return;
+    }
+    matrix_t* dW = matrix_mult(t_input, dZ);
+    if(dW == NULL){
+        matrix_free(t_input);
+        matrix_free(dZ);
+        return;
+    }
+    matrix_t* db = matrix_sum_rows(dZ);
+    if(db == NULL){
+        matrix_free(dZ);
+        matrix_free(t_input);
+        matrix_free(dW);
+        return;
+    }
+    matrix_t* t_weights = matrix_transpose(l->weights);
+    if(t_weights == NULL){
+        matrix_free(dZ);
+        matrix_free(t_input);
+        matrix_free(dW);
+        matrix_free(db);
+        return;
+    }
+    matrix_t* dinputs = matrix_mult(dZ,t_weights);
+    if(dinputs == NULL){
+        matrix_free(dZ);
+        matrix_free(t_input);
+        matrix_free(dW);
+        matrix_free(db);
+        matrix_free(t_weights);
+        return;
+    }
+    l->dinputs = dinputs;
+
+    matrix_scalar_mult(dW, learning_rate);
+    matrix_sub_ip(l->weights, dW);
+
+    matrix_scalar_mult(db, learning_rate);
+    matrix_sub_ip(l->biases,db);
+
+    matrix_free(dZ);
+    matrix_free(t_input);
+    matrix_free(dW);
+    matrix_free(db);
+    matrix_free(t_weights);
 }

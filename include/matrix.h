@@ -34,6 +34,8 @@ void matrix_sub(matrix_t* a, matrix_t* b, matrix_t* out);
 void matrix_scalar_mult(matrix_t* a, double scalar);
 void matrix_hadamard(matrix_t* a, matrix_t*b, matrix_t* out);
 void matrix_add_bias(matrix_t* z, const matrix_t* bias);
+matrix_t* matrix_sum_rows(matrix_t* x);
+void matrix_sub_ip(matrix_t* a, matrix_t* b);
 
 /*
 
