@@ -4,19 +4,19 @@
 #include "../include/data.h"
 #include "../include/model.h"
 #include "../include/debug.h"
-#include "../include/activation.h"
 #include "../include/loss.h"
 
 
-int main(/*int argc, char* argv[]*/){
-    srand(time(NULL));
 
-    matrix_t* init = matrix_alloc(25, 25);
+int main(/*int argc, char* argv[]*/){
+    seedlcgrandf(time(NULL));
+
+    matrix_t* init = matrix_alloc(100, 100);
     matrix_set_rand_val(init);
 
     // Set up an input matrix: 2 samples, 3 features each
-    int layer_sizes[5] = {25,75,150,15,1};
-    model_t* model = model_init(25, layer_sizes,A_RELU, 5, 0);
+    int layer_sizes[5] = {100,75,150,10,1};
+    model_t* model = model_init(100, layer_sizes,A_RELU, 5, 0);
     for(int i = 0; i<5;++i){
         if(i == 0){
 
@@ -29,9 +29,7 @@ int main(/*int argc, char* argv[]*/){
 
     }
 
-    matrix_print(model->layers[4]->output);
-
-    matrix_t* y_true = matrix_alloc(25, 1);
+    matrix_t* y_true = matrix_alloc(100, 1);
     if(y_true == NULL){
         model_free(model);
         return 1;

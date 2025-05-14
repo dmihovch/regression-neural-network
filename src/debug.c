@@ -42,7 +42,7 @@ void matrix_set_rand_val(matrix_t* m){
     const int num_elem = m->cols * m->rows;
     double* arr = m->data;
     for(; i<num_elem; ++i){
-        arr[i] = randf();
+        arr[i] = lcgrandf();
     }
 }
 
