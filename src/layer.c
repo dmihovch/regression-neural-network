@@ -79,7 +79,7 @@ void init_randf_vals(matrix_t* m){
     double* arr = m->data;
     int i = 0;
     for(;i<size;++i){
-        arr[i] = randf();
+        arr[i] = lcgrandf();
     }
 }
 
@@ -120,9 +120,9 @@ void init_weights_relu(matrix_t* m, double mu, double sigma){
 double box_muller_tran(double mu, double sigma){
     double u1 = 0.;
     while(u1 == 0.){
-        u1 = randf();
+        u1 = lcgrandf();
     }
-    double u2 = randf();
+    double u2 = lcgrandf();
 
     const double mult1 = sqrt(-2*log(u1));
     const double mult2 = cos(2*M_PI*u2);
@@ -138,7 +138,7 @@ void init_weights_sigmoid(matrix_t* m, int inputs, int outputs){
     const double mult = min + (max - min);
     int i = 0;
     for(;i<size;++i){
-        arr[i] = mult * randf();
+        arr[i] = mult * lcgrandf();
     }
 }
 
