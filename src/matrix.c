@@ -65,12 +65,20 @@ to make sure matrix and matrix data are not null
 
 
 
-
+//deprecated
+/*
 double matrix_index(matrix_t* m, int row, int col){
     return m->data[row * m->cols + col];
 }
 
+*/
+
 //need to free
+
+//need to free
+
+/*
+
 double* matrix_get_row(matrix_t* m, int row){
     if(m == NULL || m->data == NULL){
         return NULL;
@@ -86,7 +94,8 @@ double* matrix_get_row(matrix_t* m, int row){
     }
     return arr;
 }
-//need to free
+
+
 double* matrix_get_col(matrix_t* m, int col){
     if(m == NULL || m->data == NULL){
         return NULL;
@@ -102,12 +111,18 @@ double* matrix_get_col(matrix_t* m, int col){
     }
     return arr;
 }
+*/
 
+
+/*
 
 void matrix_write_to_index(matrix_t* m,double val, int row, int col){
     //printf("m->data[%d]\n",(row*m->cols+col));
     m->data[row*m->cols+col] = val;
 }
+
+*/
+
 
 
 
@@ -173,7 +188,17 @@ void matrix_mult_loop_handler(matrix_t* c, matrix_t* a, matrix_t* b, const int s
 
     return;
 }
-
+void matrix_sub_ip(matrix_t* a, matrix_t* b){
+    const int rows = a->rows;
+    const int cols = a->cols;
+    const int size = rows*cols;
+    double* a_arr = a->data;
+    double* b_arr = b->data;
+    int i = 0;
+    for(;i<size;++i){
+        a_arr[i] = a_arr[i] - b_arr[i];
+    }
+}
 
 void matrix_copy(matrix_t* dest, matrix_t* src){
     if(dest == NULL || dest->data == NULL || src == NULL || src->data == NULL){
@@ -183,16 +208,14 @@ void matrix_copy(matrix_t* dest, matrix_t* src){
     double* s_arr = src->data;
     const int rows = src->rows;
     const int cols = src->cols;
+    const int size = rows*cols;
 
     if(rows != dest->rows || cols != dest->cols){
         return;
     }
     int i = 0;
-    for(;i<rows;++i){
-        int j = 0;
-        for(;j<cols; ++j){
-            d_arr[i*cols+j] = s_arr[i*cols+j];
-        }
+    for(;i<size;++i){
+        d_arr[i] = s_arr[i];
     }
 }
 
@@ -299,4 +322,31 @@ void matrix_add_bias(matrix_t* z, const matrix_t* bias){
             z_arr[i*cols+j] = z_arr[i*cols+j] + b[j];
         }
     }
+}
+
+matrix_t* matrix_sum_rows(matrix_t* x){
+    matrix_t* x_rows_summed = matrix_alloc(1,x->cols);
+    if(x_rows_summed == NULL){
+        return NULL;
+    }
+
+    double* s_arr = x_rows_summed->data;
+    double* x_arr = x->data;
+
+    const int rows = x->rows;
+    const int cols = x->cols;
+    //const int size = rows*cols;
+    int j = 0;
+    double sum;
+    for(;j<cols;++j){
+        sum = 0.;
+        int i = 0;
+        for(;i<rows;++i){
+            sum+=x_arr[i*cols+j];
+        }
+        s_arr[j] = sum;
+    }
+
+    return x_rows_summed;
+
 }
