@@ -3,21 +3,6 @@
 #include <time.h>
 
 
-
-
-/*
-
-Setup, shutdown, and debug
-
-*/
-
-
-/*
-
-exposed functions
-
-*/
-
 matrix_t* matrix_alloc(int rows, int cols){
 
     if(rows <= 0 || cols <= 0){
@@ -43,7 +28,6 @@ matrix_t* matrix_alloc(int rows, int cols){
     return m;
 }
 
-//you can chuck whatever the fuck you'd like in here as long as the compiler thinks its a pointer to a matrix,  and we gucci
 void matrix_free(matrix_t *m){
     if(m != NULL){
         if(m->data != NULL){
@@ -54,97 +38,14 @@ void matrix_free(matrix_t *m){
     }
 }
 
-
-/*
-
-all functions below this point rely on the caller
-to make sure matrix and matrix data are not null
-
-*/
-
-
-
-
-//deprecated
-/*
-double matrix_index(matrix_t* m, int row, int col){
-    return m->data[row * m->cols + col];
-}
-
-*/
-
-//need to free
-
-//need to free
-
-/*
-
-double* matrix_get_row(matrix_t* m, int row){
-    if(m == NULL || m->data == NULL){
-        return NULL;
-    }
-    const int cols = m->cols;
-    double* arr = calloc(cols,sizeof(double));
-    if(arr == NULL){
-        return NULL;
-    }
-    int i = 0;
-    for(;i<cols;++i){
-        arr[i] = matrix_index(m,row,i);
-    }
-    return arr;
-}
-
-
-double* matrix_get_col(matrix_t* m, int col){
-    if(m == NULL || m->data == NULL){
-        return NULL;
-    }
-    const int rows = m->rows;
-    double* arr = calloc(rows,sizeof(double));
-    if(arr == NULL){
-        return NULL;
-    }
-    int i = 0;
-    for(;i<rows;++i){
-        arr[i] = matrix_index(m,i,col);
-    }
-    return arr;
-}
-*/
-
-
-/*
-
-void matrix_write_to_index(matrix_t* m,double val, int row, int col){
-    //printf("m->data[%d]\n",(row*m->cols+col));
-    m->data[row*m->cols+col] = val;
-}
-
-*/
-
-
-
-
-/*
-
-matrix math :()
-
-*/
-
-
-//thjis be an ugly ass function
 matrix_t* matrix_mult(matrix_t* a, matrix_t* b){
-
-
-    //gotta break this up at some point
-
     if(a == NULL || b == NULL || a->data == NULL || b->data == NULL){
         return NULL;
     }
 
     const int shared_dimension_size_ab = a->cols == b->rows ? a->cols : 0;
-    //remove for prod
+
+
     if(!shared_dimension_size_ab){
         printf("matrix_dot: a->col: %d != b->row: %d",a->cols,b->rows);
         return NULL;
@@ -158,13 +59,13 @@ matrix_t* matrix_mult(matrix_t* a, matrix_t* b){
     }
 
 
-    matrix_mult_loop_handler(c,a,b,shared_dimension_size_ab);
+    matrix_mult_thread_handler(c,a,b,shared_dimension_size_ab);
     return c;
 }
 
 
 //this is a pure helper function. it can basically be treated as inline code...... I think
-void matrix_mult_loop_handler(matrix_t* c, matrix_t* a, matrix_t* b, const int shared_dimension_size_ab){
+inline void matrix_mult_thread_handler(matrix_t* c, matrix_t* a, matrix_t* b, const int shared_dimension_size_ab){
 
     double start  = get_time_sec();
 
@@ -185,8 +86,6 @@ void matrix_mult_loop_handler(matrix_t* c, matrix_t* a, matrix_t* b, const int s
 
     double end = get_time_sec();
     printf("MATRIX MULT TIME: %0.5f seconds\n",end-start);
-
-    return;
 }
 void matrix_sub_ip(matrix_t* a, matrix_t* b){
     const int rows = a->rows;
@@ -296,8 +195,6 @@ void matrix_scalar_mult(matrix_t* a, double scalar){
     }
 }
 void matrix_hadamard(matrix_t* a, matrix_t*b, matrix_t* out){
-
-    //doesn't matter which one, they are same size; hmmmmmmmm this could raise some issues potensh
     const int size = a->rows*a->cols;
     int i = 0;
     double* a_arr = a->data;
@@ -335,7 +232,6 @@ matrix_t* matrix_sum_rows(matrix_t* x){
 
     const int rows = x->rows;
     const int cols = x->cols;
-    //const int size = rows*cols;
     int j = 0;
     double sum;
     for(;j<cols;++j){
@@ -346,7 +242,5 @@ matrix_t* matrix_sum_rows(matrix_t* x){
         }
         s_arr[j] = sum;
     }
-
     return x_rows_summed;
-
 }

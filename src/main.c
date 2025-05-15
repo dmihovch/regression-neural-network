@@ -14,7 +14,6 @@ int main(/*int argc, char* argv[]*/){
     matrix_t* init = matrix_alloc(100, 100);
     matrix_set_rand_val(init);
 
-    // Set up an input matrix: 2 samples, 3 features each
     int layer_sizes[5] = {100,75,150,10,1};
     model_t* model = model_init(100, layer_sizes,A_RELU, 5, 0);
     for(int i = 0; i<5;++i){

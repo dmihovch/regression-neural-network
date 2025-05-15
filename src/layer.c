@@ -15,7 +15,7 @@ layer_t* layer_init(int input_size, int output_size, activation_type act){
     }
     l->biases = matrix_alloc(1,output_size);
     if(l->biases == NULL){
-        free(l->weights); //technically only need to call free here, but I'll just do it for kicks
+        free(l->weights);
         free(l);
         return NULL;
     }
