@@ -4,7 +4,7 @@
 #define MAX_LAYERS 10
 
 typedef struct model_t{
-    layer_t** layers; //array of pointers to layers
+    layer_t** layers;
     int num_layers;
     double learning_rate;
 }model_t;

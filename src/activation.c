@@ -47,4 +47,4 @@ matrix_t* activation_backwards(matrix_t* z, matrix_t* dA, activation_type act){
     return NULL;
 }
 
-//todo: implement tanh
+//todo: tanh
