@@ -48,9 +48,9 @@ void model_free(model_t *model){
         free(model);
         return;
     }
-    const int layers = model->num_layers;
+    const int num_layers = model->num_layers;
 
-    for(;i<layers;++i){
+    for(;i<num_layers;++i){
         if(model->layers[i] != NULL){
             layer_free(model->layers[i]);
         }

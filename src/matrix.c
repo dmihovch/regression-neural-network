@@ -69,6 +69,8 @@ inline void matrix_mult_thread_handler(matrix_t* c, matrix_t* a, matrix_t* b, co
 
     double start  = get_time_sec();
 
+    //way too many threads being spawned. need to limit this to just a few.
+
     const int a_rows = a->rows;
     pthread_t threads[a_rows];
     for(int i = 0; i<a_rows;++i){
@@ -87,6 +89,8 @@ inline void matrix_mult_thread_handler(matrix_t* c, matrix_t* a, matrix_t* b, co
     double end = get_time_sec();
     printf("MATRIX MULT TIME: %0.5f seconds\n",end-start);
 }
+
+//could use threading
 void matrix_sub_ip(matrix_t* a, matrix_t* b){
     const int rows = a->rows;
     const int cols = a->cols;
@@ -98,6 +102,7 @@ void matrix_sub_ip(matrix_t* a, matrix_t* b){
         a_arr[i] = a_arr[i] - b_arr[i];
     }
 }
+
 
 void matrix_copy(matrix_t* dest, matrix_t* src){
     if(dest == NULL || dest->data == NULL || src == NULL || src->data == NULL){
@@ -118,7 +123,7 @@ void matrix_copy(matrix_t* dest, matrix_t* src){
     }
 }
 
-
+//could use threading
 void matrix_apply_activation_ip(matrix_t* m, double(*p_act_func)(double)){
     const int size = m->rows*m->cols;
     double* arr = m->data;
@@ -127,6 +132,8 @@ void matrix_apply_activation_ip(matrix_t* m, double(*p_act_func)(double)){
         arr[i] = p_act_func(arr[i]);
     }
 }
+
+//could use threading
 void matrix_apply_activation_new(matrix_t* m, double(*p_act_func)(double), matrix_t* out){
     const int size = out->rows * out->cols;
     double* m_arr = m->data;

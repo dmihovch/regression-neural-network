@@ -18,16 +18,20 @@ void* thread_matrix_mult(void* payload){
     const int c_cols = p.c->cols;
     const int b_cols = p.b->cols;
 
+
+    //not sure if I like pointer arithmetic here
     double* a_i = a_arr+i*a_cols;
     double a_ik;
 
     double* b_k;
 
     double* c_i = c_arr+i*c_cols;
-    for(int k = 0; k < shared_dim; ++k){
+    int k = 0;
+    for(; k < shared_dim; ++k){
         a_ik = a_i[k];
         b_k = b_arr+k*b_cols;
-        for(int j = 0; j<b_cols; ++j){
+        int j = 0;
+        for(; j<b_cols; ++j){
             c_i[j] += a_ik * b_k[j];
         }
     }
