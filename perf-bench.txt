@@ -1,67 +1,73 @@
 
-MATRIX MULT TIME: 0.00422 seconds
-MATRIX MULT TIME: 0.00260 seconds
-MATRIX MULT TIME: 0.00472 seconds
-MATRIX MULT TIME: 0.00306 seconds
-MATRIX MULT TIME: 0.00268 seconds
-mse: 0.87877
-MATRIX MULT TIME: 0.00270 seconds
-MATRIX MULT TIME: 0.00260 seconds
-MATRIX MULT TIME: 0.00249 seconds
-MATRIX MULT TIME: 0.00236 seconds
-MATRIX MULT TIME: 0.00228 seconds
-mse: 0.11423
-MATRIX MULT TIME: 0.00334 seconds
-MATRIX MULT TIME: 0.00287 seconds
-MATRIX MULT TIME: 0.00301 seconds
-MATRIX MULT TIME: 0.00291 seconds
-MATRIX MULT TIME: 0.00282 seconds
-mse: 0.91807
-MATRIX MULT TIME: 0.00555 seconds
-MATRIX MULT TIME: 0.00320 seconds
-MATRIX MULT TIME: 0.00345 seconds
-MATRIX MULT TIME: 0.00331 seconds
-MATRIX MULT TIME: 0.00340 seconds
-mse: 0.79960
-MATRIX MULT TIME: 0.01675 seconds
-MATRIX MULT TIME: 0.01357 seconds
-MATRIX MULT TIME: 0.00745 seconds
-MATRIX MULT TIME: 0.00548 seconds
-MATRIX MULT TIME: 0.00468 seconds
-mse: 0.79960
-MATRIX MULT TIME: 0.00379 seconds
-MATRIX MULT TIME: 0.00365 seconds
-MATRIX MULT TIME: 0.00371 seconds
-MATRIX MULT TIME: 0.00351 seconds
-MATRIX MULT TIME: 0.00346 seconds
-mse: 0.09311
-MATRIX MULT TIME: 0.00361 seconds
-MATRIX MULT TIME: 0.00316 seconds
-MATRIX MULT TIME: 0.00344 seconds
-MATRIX MULT TIME: 0.00341 seconds
-MATRIX MULT TIME: 0.00341 seconds
-mse: 0.85021
-MATRIX MULT TIME: 0.00355 seconds
-MATRIX MULT TIME: 0.00305 seconds
-MATRIX MULT TIME: 0.00302 seconds
-MATRIX MULT TIME: 0.00294 seconds
-MATRIX MULT TIME: 0.00284 seconds
-mse: 0.62528
-MATRIX MULT TIME: 0.00284 seconds
-MATRIX MULT TIME: 0.00267 seconds
-MATRIX MULT TIME: 0.00250 seconds
-MATRIX MULT TIME: 0.00273 seconds
-MATRIX MULT TIME: 0.00243 seconds
-mse: 0.19645
-MATRIX MULT TIME: 0.00250 seconds
-MATRIX MULT TIME: 0.00232 seconds
-MATRIX MULT TIME: 0.00220 seconds
-MATRIX MULT TIME: 0.00215 seconds
-MATRIX MULT TIME: 0.00212 seconds
-mse: 0.99929
-MATRIX MULT TIME: 4.82564 seconds
-MATRIX MULT TIME: 4.60403 seconds
-MATRIX MULT TIME: 4.65764 seconds
-MATRIX MULT TIME: 4.56551 seconds
-MATRIX MULT TIME: 4.55728 seconds
-mse: 0.39303
+da: 100x1 || din: 100x10
+da: 100x10 || din: 100x150
+da: 100x150 || din: 100x75
+da: 100x75 || din: 100x100
+da: 100x100 || din: 100x100
+Epoch 0, Loss: 0.122460
+da: 100x1 || din: 100x10
+da: 100x10 || din: 100x150
+da: 100x150 || din: 100x75
+da: 100x75 || din: 100x100
+da: 100x100 || din: 100x100
+Epoch 1, Loss: 0.122460
+da: 100x1 || din: 100x10
+da: 100x10 || din: 100x150
+da: 100x150 || din: 100x75
+da: 100x75 || din: 100x100
+da: 100x100 || din: 100x100
+Epoch 0, Loss: 1.000000
+da: 100x1 || din: 100x10
+da: 100x10 || din: 100x150
+da: 100x150 || din: 100x75
+da: 100x75 || din: 100x100
+da: 100x100 || din: 100x100
+Epoch 1, Loss: 1.000000
+da: 100x1 || din: 100x10
+da: 100x10 || din: 100x150
+da: 100x150 || din: 100x75
+da: 100x75 || din: 100x100
+da: 100x100 || din: 100x100
+Epoch 0, Loss: 0.660937
+da: 100x1 || din: 100x10
+da: 100x10 || din: 100x150
+da: 100x150 || din: 100x75
+da: 100x75 || din: 100x100
+da: 100x100 || din: 100x100
+Epoch 1, Loss: 0.660937
+da: 100x1 || din: 100x10
+da: 100x10 || din: 100x150
+da: 100x150 || din: 100x75
+da: 100x75 || din: 100x100
+da: 100x100 || din: 100x100
+Epoch 0, Loss: 0.873331
+da: 100x1 || din: 100x10
+da: 100x10 || din: 100x150
+da: 100x150 || din: 100x75
+da: 100x75 || din: 100x100
+da: 100x100 || din: 100x100
+Epoch 1, Loss: 0.873331
+da: 10x1 || din: 10x10
+da: 10x10 || din: 10x15
+da: 10x15 || din: 10x7
+da: 10x7 || din: 10x10
+da: 10x10 || din: 10x10
+Epoch 0, Loss: 0.838339
+da: 10x1 || din: 10x10
+da: 10x10 || din: 10x15
+da: 10x15 || din: 10x7
+da: 10x7 || din: 10x10
+da: 10x10 || din: 10x10
+Epoch 1, Loss: 0.838339
+da: 10x1 || din: 10x10
+da: 10x10 || din: 10x15
+da: 10x15 || din: 10x7
+da: 10x7 || din: 10x10
+da: 10x10 || din: 10x10
+Epoch 0, Loss: 0.995438
+da: 10x1 || din: 10x10
+da: 10x10 || din: 10x15
+da: 10x15 || din: 10x7
+da: 10x7 || din: 10x10
+da: 10x10 || din: 10x10
+Epoch 1, Loss: 0.995438

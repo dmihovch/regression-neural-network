@@ -88,6 +88,9 @@ int save_pre_activation_z(layer_t* layer, matrix_t* z){
     }
 
     matrix_copy(pre_act_z_mat, z);
+    if(layer->pre_act_z != NULL){
+        free(layer->pre_act_z);
+    }
     layer->pre_act_z = pre_act_z_mat;
     return 0;
 }
@@ -243,6 +246,9 @@ void layer_backwards(layer_t *l, matrix_t *dA, double learning_rate){
         matrix_free(db);
         matrix_free(t_weights);
         return;
+    }
+    if(l->dinputs != NULL){
+        matrix_free(l->dinputs);
     }
     l->dinputs = dinputs;
 

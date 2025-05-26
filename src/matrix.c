@@ -67,7 +67,7 @@ matrix_t* matrix_mult(matrix_t* a, matrix_t* b){
 //this is a pure helper function. it can basically be treated as inline code...... I think
 inline void matrix_mult_thread_handler(matrix_t* c, matrix_t* a, matrix_t* b, const int shared_dimension_size_ab){
 
-    double start  = get_time_sec();
+    //double start  = get_time_sec();
 
     //way too many threads being spawned. need to limit this to just a few.
 
@@ -86,8 +86,8 @@ inline void matrix_mult_thread_handler(matrix_t* c, matrix_t* a, matrix_t* b, co
     }
 
 
-    double end = get_time_sec();
-    printf("MATRIX MULT TIME: %0.5f seconds\n",end-start);
+    //double end = get_time_sec();
+    //printf("MATRIX MULT TIME: %0.5f seconds\n",end-start);
 }
 
 //could use threading

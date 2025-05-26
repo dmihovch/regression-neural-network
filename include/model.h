@@ -1,6 +1,7 @@
 #pragma once
 #include "layer.h"
 #include "matrix.h"
+#include "loss.h"
 #define MAX_LAYERS 10
 
 typedef struct model_t{
