@@ -1,5 +1,4 @@
 #include "../include/layer.h"
-#include <assert.h>
 #include <math.h>
 
 //mallocs a layer

@@ -85,6 +85,9 @@ void model_train(model_t* model, matrix_t* x, matrix_t* y, int epochs){
             }
         }
 
+        printf("last layer output after forward prop\n");
+        matrix_print(model->layers[num_layers-1]->output);
+        printf("\n");
         loss = mean_squared_error_loss(y, model->layers[num_layers-1]->output);
 
         matrix_t* dA = matrix_alloc(y_true_rows,y_true_cols);
