@@ -75,20 +75,23 @@ void model_train(model_t* model, matrix_t* x, matrix_t* y, int epochs){
     int ep = 0;
     for(;ep<epochs;++ep){
 
-        matrix_t* current_input = x;
 
         for(int i = 0;i<num_layers;++i){
-            layer_forward(model->layers[i], current_input);
-            current_input = model->layers[i]->output;
+            if(!i){
+                layer_forward(model->layers[i], x);
+            }
+            else{
+                layer_forward(model->layers[i], model->layers[i-1]->output);
+            }
         }
 
-        loss = mean_squared_error_loss(y, current_input);
+        loss = mean_squared_error_loss(y, model->layers[num_layers-1]->output);
 
         matrix_t* dA = matrix_alloc(y_true_rows,y_true_cols);
         if(dA == NULL){
             return;
         }
-        dmean_squared_error(y, current_input, dA);
+        dmean_squared_error(y, model->layers[num_layers-1]->output, dA);
 
         matrix_t* dA_current = dA;
         for(int i = num_layers-1;i>=0;--i){

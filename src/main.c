@@ -25,9 +25,11 @@ int main(/*int argc, char* argv[]*/){
 
 
     model_train(model, init, y_true, 2);
-
     matrix_free(init);
     matrix_free(y_true);
     model_free(model);
+
+    printf("End of program...\n\n");
+
     return 0;
 }
