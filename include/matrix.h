@@ -37,3 +37,4 @@ matrix_t* matrix_transpose(matrix_t* m);
 void matrix_copy(matrix_t* dest, matrix_t* src);
 void matrix_apply_activation_ip(matrix_t* m, double(*p_act_func)(double));
 void matrix_apply_activation_new(matrix_t* m, double(*p_act_func)(double), matrix_t* out);
+matrix_t* matrix_copy_alloc_new(matrix_t* src);

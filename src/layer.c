@@ -1,4 +1,5 @@
 #include "../include/layer.h"
+#include <assert.h>
 #include <math.h>
 
 //mallocs a layer
@@ -29,6 +30,7 @@ layer_t* layer_init(int input_size, int output_size, activation_type act){
     l->dweights = NULL;
     l->dinputs = NULL;
     l->pre_act_z = NULL;
+    l->input = NULL;
 
     return l;
 }
@@ -41,16 +43,15 @@ void layer_forward(layer_t* layer, matrix_t* input){
         layer->output = NULL;
     }
 
-
-    const int in_rows = input->rows;
-    const int in_cols = input->cols;
-    matrix_t* input_copy = matrix_alloc(in_rows, in_cols);
+    matrix_t* input_copy = matrix_copy_alloc_new(input);
     if(input_copy == NULL){
         return;
     }
-    matrix_copy(input_copy, input);
-
+    if(layer->input != NULL){
+        matrix_free(layer->input);
+    }
     layer->input = input_copy;
+
     matrix_t* in = layer->input;
     matrix_t* w = layer->weights;
     matrix_t* b = layer->biases;
@@ -89,7 +90,7 @@ int save_pre_activation_z(layer_t* layer, matrix_t* z){
 
     matrix_copy(pre_act_z_mat, z);
     if(layer->pre_act_z != NULL){
-        free(layer->pre_act_z);
+        matrix_free(layer->pre_act_z);
     }
     layer->pre_act_z = pre_act_z_mat;
     return 0;

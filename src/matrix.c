@@ -251,3 +251,12 @@ matrix_t* matrix_sum_rows(matrix_t* x){
     }
     return x_rows_summed;
 }
+
+matrix_t* matrix_copy_alloc_new(matrix_t* src){
+    matrix_t* dest = matrix_alloc(src->rows, src->cols);
+    if(dest == NULL){
+        return NULL;
+    }
+    matrix_copy(dest,src);
+    return dest;
+}
