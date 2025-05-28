@@ -6,7 +6,7 @@
 matrix_t* matrix_alloc(int rows, int cols){
 
     if(rows <= 0 || cols <= 0){
-        printf("rows or cols <= 0");
+        printf("rows or cols <= 0\n");
         return NULL;
     }
 

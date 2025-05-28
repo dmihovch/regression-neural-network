@@ -231,6 +231,13 @@ void layer_backwards(layer_t *l, matrix_t *dA, double learning_rate){
         matrix_free(dW);
         return;
     }
+
+
+    //gradient normalization
+    double inverse_batch_size = 1.0 / (double)dZ->rows;
+    matrix_scalar_mult(dW, inverse_batch_size);
+    matrix_scalar_mult(db, inverse_batch_size);
+
     matrix_t* t_weights = matrix_transpose(l->weights);
     if(t_weights == NULL){
         matrix_free(dZ);

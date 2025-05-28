@@ -26,7 +26,10 @@ model_t* model_init(int input_size, int* layer_sizes, activation_type act, int n
         if(i == 0){
             model->layers[i] = layer_init(input_size, layer_sizes[i],act);
         }
-        else{
+        if(i == num_layers-1){
+            model->layers[i] = layer_init(layer_sizes[i-1], layer_sizes[i], A_NONE);
+        }
+        if(i != 0 && i != num_layers-1){
             model->layers[i] = layer_init(layer_sizes[i-1], layer_sizes[i], act);
         }
 
@@ -97,12 +100,10 @@ void model_train(model_t* model, matrix_t* x, matrix_t* y, int epochs){
         for(int i = num_layers-1;i>=0;--i){
             layer_backwards(model->layers[i], dA_current, learn_rate);
 
-            printf("da: %dx%d || din: %dx%d\n",dA_current->rows,dA_current->cols, model->layers[i]->dinputs->rows,model->layers[i]->dinputs->cols);
+            //printf("da: %dx%d || din: %dx%d\n",dA_current->rows,dA_current->cols, model->layers[i]->dinputs->rows,model->layers[i]->dinputs->cols);
             dA_current = model->layers[i]->dinputs;
         }
         matrix_free(dA);
-
-
         printf("Epoch %d, Loss: %f\n",ep,loss);
     }
 }

@@ -1,197 +1,96 @@
-
-da: 100x1 || din: 100x10
-da: 100x10 || din: 100x150
-da: 100x150 || din: 100x75
-da: 100x75 || din: 100x100
-da: 100x100 || din: 100x100
-Epoch 0, Loss: 0.122460
-da: 100x1 || din: 100x10
-da: 100x10 || din: 100x150
-da: 100x150 || din: 100x75
-da: 100x75 || din: 100x100
-da: 100x100 || din: 100x100
-Epoch 1, Loss: 0.122460
-da: 100x1 || din: 100x10
-da: 100x10 || din: 100x150
-da: 100x150 || din: 100x75
-da: 100x75 || din: 100x100
-da: 100x100 || din: 100x100
-Epoch 0, Loss: 1.000000
-da: 100x1 || din: 100x10
-da: 100x10 || din: 100x150
-da: 100x150 || din: 100x75
-da: 100x75 || din: 100x100
-da: 100x100 || din: 100x100
-Epoch 1, Loss: 1.000000
-da: 100x1 || din: 100x10
-da: 100x10 || din: 100x150
-da: 100x150 || din: 100x75
-da: 100x75 || din: 100x100
-da: 100x100 || din: 100x100
-Epoch 0, Loss: 0.660937
-da: 100x1 || din: 100x10
-da: 100x10 || din: 100x150
-da: 100x150 || din: 100x75
-da: 100x75 || din: 100x100
-da: 100x100 || din: 100x100
-Epoch 1, Loss: 0.660937
-da: 100x1 || din: 100x10
-da: 100x10 || din: 100x150
-da: 100x150 || din: 100x75
-da: 100x75 || din: 100x100
-da: 100x100 || din: 100x100
-Epoch 0, Loss: 0.873331
-da: 100x1 || din: 100x10
-da: 100x10 || din: 100x150
-da: 100x150 || din: 100x75
-da: 100x75 || din: 100x100
-da: 100x100 || din: 100x100
-Epoch 1, Loss: 0.873331
-da: 10x1 || din: 10x10
-da: 10x10 || din: 10x15
-da: 10x15 || din: 10x7
-da: 10x7 || din: 10x10
-da: 10x10 || din: 10x10
-Epoch 0, Loss: 0.838339
-da: 10x1 || din: 10x10
-da: 10x10 || din: 10x15
-da: 10x15 || din: 10x7
-da: 10x7 || din: 10x10
-da: 10x10 || din: 10x10
-Epoch 1, Loss: 0.838339
-da: 10x1 || din: 10x10
-da: 10x10 || din: 10x15
-da: 10x15 || din: 10x7
-da: 10x7 || din: 10x10
-da: 10x10 || din: 10x10
-Epoch 0, Loss: 0.995438
-da: 10x1 || din: 10x10
-da: 10x10 || din: 10x15
-da: 10x15 || din: 10x7
-da: 10x7 || din: 10x10
-da: 10x10 || din: 10x10
-Epoch 1, Loss: 0.995438
-da: 10x1 || din: 10x10
-da: 10x10 || din: 10x15
-da: 10x15 || din: 10x7
-da: 10x7 || din: 10x10
-da: 10x10 || din: 10x10
-Epoch 0, Loss: 0.997383
-da: 10x1 || din: 10x10
-da: 10x10 || din: 10x15
-da: 10x15 || din: 10x7
-da: 10x7 || din: 10x10
-da: 10x10 || din: 10x10
-Epoch 1, Loss: 0.997383
-da: 10x1 || din: 10x10
-da: 10x10 || din: 10x15
-da: 10x15 || din: 10x7
-da: 10x7 || din: 10x10
-da: 10x10 || din: 10x10
-Epoch 0, Loss: 0.698501
-da: 10x1 || din: 10x10
-da: 10x10 || din: 10x15
-da: 10x15 || din: 10x7
-da: 10x7 || din: 10x10
-da: 10x10 || din: 10x10
-Epoch 1, Loss: 0.698501
+Epoch 0, Loss: 0.461503
+Epoch 1, Loss: 0.750270
+Epoch 2, Loss: 0.828495
+Epoch 3, Loss: 0.874010
+Epoch 4, Loss: 0.901661
+Epoch 5, Loss: 0.922486
+Epoch 6, Loss: 0.938461
+Epoch 7, Loss: 0.950469
+Epoch 8, Loss: 0.959562
+Epoch 9, Loss: 0.966822
 End of program...
 
-da: 10x1 || din: 10x10
-da: 10x10 || din: 10x15
-da: 10x15 || din: 10x7
-da: 10x7 || din: 10x10
-da: 10x10 || din: 10x10
-Epoch 0, Loss: 1.000000
-da: 10x1 || din: 10x10
-da: 10x10 || din: 10x15
-da: 10x15 || din: 10x7
-da: 10x7 || din: 10x10
-da: 10x10 || din: 10x10
-Epoch 1, Loss: 1.000000
+Epoch 0, Loss: 0.428363
+Epoch 1, Loss: 0.355782
+Epoch 2, Loss: 0.847430
+Epoch 3, Loss: 0.947334
+Epoch 4, Loss: 0.983484
+Epoch 5, Loss: 0.995780
+Epoch 6, Loss: 0.999881
+Epoch 7, Loss: 1.001131
+Epoch 8, Loss: 1.001391
+Epoch 9, Loss: 1.001319
 End of program...
 
-da: 10x1 || din: 10x10
-da: 10x10 || din: 10x15
-da: 10x15 || din: 10x7
-da: 10x7 || din: 10x10
-da: 10x10 || din: 10x10
-Epoch 0, Loss: 0.146203
-da: 10x1 || din: 10x10
-da: 10x10 || din: 10x15
-da: 10x15 || din: 10x7
-da: 10x7 || din: 10x10
-da: 10x10 || din: 10x10
-Epoch 1, Loss: 0.146203
+Epoch 0, Loss: 0.269529
+Epoch 1, Loss: 0.660082
+Epoch 2, Loss: 0.795532
+Epoch 3, Loss: 0.867854
+Epoch 4, Loss: 0.912971
+Epoch 5, Loss: 0.944995
+Epoch 6, Loss: 0.966226
+Epoch 7, Loss: 0.982034
+Epoch 8, Loss: 0.992627
+Epoch 9, Loss: 0.998697
 End of program...
 
-da: 10x1 || din: 10x10
-da: 10x10 || din: 10x15
-da: 10x15 || din: 10x7
-da: 10x7 || din: 10x10
-da: 10x10 || din: 10x10
-Epoch 0, Loss: 0.372507
-da: 10x1 || din: 10x10
-da: 10x10 || din: 10x15
-da: 10x15 || din: 10x7
-da: 10x7 || din: 10x10
-da: 10x10 || din: 10x10
-Epoch 1, Loss: 0.372507
+Epoch 0, Loss: 0.047599
+Epoch 1, Loss: 0.928393
+Epoch 2, Loss: 0.954075
+Epoch 3, Loss: 0.968887
+Epoch 4, Loss: 0.979182
+Epoch 5, Loss: 0.986460
+Epoch 6, Loss: 0.992127
+Epoch 7, Loss: 0.996517
+Epoch 8, Loss: 0.999895
+Epoch 9, Loss: 1.002580
 End of program...
 
-da: 10x1 || din: 10x10
-da: 10x10 || din: 10x15
-da: 10x15 || din: 10x7
-da: 10x7 || din: 10x10
-da: 10x10 || din: 10x10
-Epoch 0, Loss: 1.000000
-da: 10x1 || din: 10x10
-da: 10x10 || din: 10x15
-da: 10x15 || din: 10x7
-da: 10x7 || din: 10x10
-da: 10x10 || din: 10x10
-Epoch 1, Loss: 1.000000
+Epoch 0, Loss: 4.542497
+Epoch 1, Loss: 1.343275
+Epoch 2, Loss: 1.215152
+Epoch 3, Loss: 1.138886
+Epoch 4, Loss: 1.092495
+Epoch 5, Loss: 1.064179
+Epoch 6, Loss: 1.047431
+Epoch 7, Loss: 1.037463
+Epoch 8, Loss: 1.031447
+Epoch 9, Loss: 1.027733
 End of program...
 
-da: 10x1 || din: 10x10
-da: 10x10 || din: 10x15
-da: 10x15 || din: 10x7
-da: 10x7 || din: 10x10
-da: 10x10 || din: 10x10
-Epoch 0, Loss: 1.000000
-da: 10x1 || din: 10x10
-da: 10x10 || din: 10x15
-da: 10x15 || din: 10x7
-da: 10x7 || din: 10x10
-da: 10x10 || din: 10x10
-Epoch 1, Loss: 1.000000
+Epoch 0, Loss: 0.068358
+Epoch 1, Loss: 0.064223
+Epoch 2, Loss: 0.060662
+Epoch 3, Loss: 0.057442
+Epoch 4, Loss: 0.054470
+Epoch 5, Loss: 0.051705
+Epoch 6, Loss: 0.049126
+Epoch 7, Loss: 0.046719
+Epoch 8, Loss: 0.044472
+Epoch 9, Loss: 0.042376
 End of program...
 
-da: 10x1 || din: 10x10
-da: 10x10 || din: 10x15
-da: 10x15 || din: 10x7
-da: 10x7 || din: 10x10
-da: 10x10 || din: 10x10
-Epoch 0, Loss: 1.000000
-da: 10x1 || din: 10x10
-da: 10x10 || din: 10x15
-da: 10x15 || din: 10x7
-da: 10x7 || din: 10x10
-da: 10x10 || din: 10x10
-Epoch 1, Loss: 1.000000
+Epoch 0, Loss: 7.693423
+Epoch 1, Loss: 0.617167
+Epoch 2, Loss: 0.550441
+Epoch 3, Loss: 0.490593
+Epoch 4, Loss: 0.431832
+Epoch 5, Loss: 0.383979
+Epoch 6, Loss: 0.343048
+Epoch 7, Loss: 0.309472
+Epoch 8, Loss: 0.280744
+Epoch 9, Loss: 0.253549
 End of program...
 
-da: 10x1 || din: 10x10
-da: 10x10 || din: 10x15
-da: 10x15 || din: 10x7
-da: 10x7 || din: 10x10
-da: 10x10 || din: 10x10
-Epoch 0, Loss: 0.463621
-da: 10x1 || din: 10x10
-da: 10x10 || din: 10x15
-da: 10x15 || din: 10x7
-da: 10x7 || din: 10x10
-da: 10x10 || din: 10x10
-Epoch 1, Loss: 0.463621
+Epoch 0, Loss: 0.329221
+Epoch 1, Loss: 0.317635
+Epoch 2, Loss: 0.306806
+Epoch 3, Loss: 0.296801
+Epoch 4, Loss: 0.287557
+Epoch 5, Loss: 0.278712
+Epoch 6, Loss: 0.270387
+Epoch 7, Loss: 0.262559
+Epoch 8, Loss: 0.255211
+Epoch 9, Loss: 0.248178
 End of program...
 
