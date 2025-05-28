@@ -53,19 +53,19 @@ matrix_t* matrix_mult(matrix_t* a, matrix_t* b){
 
 
 
-    matrix_t* c = matrix_alloc(a->rows,b->cols);
-    if(c==NULL){
+    matrix_t* prod = matrix_alloc(a->rows,b->cols);
+    if(prod==NULL){
         return NULL;
     }
 
 
-    matrix_mult_thread_handler(c,a,b,shared_dimension_size_ab);
-    return c;
+    matrix_mult_thread_handler(prod,a,b,shared_dimension_size_ab);
+    return prod;
 }
 
 
 //this is a pure helper function. it can basically be treated as inline code...... I think
-inline void matrix_mult_thread_handler(matrix_t* c, matrix_t* a, matrix_t* b, const int shared_dimension_size_ab){
+inline void matrix_mult_thread_handler(matrix_t* prod, matrix_t* a, matrix_t* b, const int shared_dimension_size_ab){
 
     //double start  = get_time_sec();
 
@@ -78,7 +78,7 @@ inline void matrix_mult_thread_handler(matrix_t* c, matrix_t* a, matrix_t* b, co
         if(p == NULL){
             return;
         }
-        *p = (thread_payload_t){shared_dimension_size_ab,i,a,b,c};
+        *p = (thread_payload_t){shared_dimension_size_ab,i,a,b,prod};
         pthread_create(threads+i, NULL, thread_matrix_mult, p);
     }
     for(int i = 0; i<a_rows;++i){
@@ -91,6 +91,8 @@ inline void matrix_mult_thread_handler(matrix_t* c, matrix_t* a, matrix_t* b, co
 }
 
 //could use threading
+
+//subtracts b from a, in place
 void matrix_sub_ip(matrix_t* a, matrix_t* b){
     const int rows = a->rows;
     const int cols = a->cols;
@@ -134,14 +136,26 @@ void matrix_apply_activation_ip(matrix_t* m, double(*p_act_func)(double)){
 }
 
 //could use threading
-void matrix_apply_activation_new(matrix_t* m, double(*p_act_func)(double), matrix_t* out){
-    const int size = out->rows * out->cols;
-    double* m_arr = m->data;
-    double* out_arr = out->data;
-    int i = 0;
-    for(;i<size;++i){
-        out_arr[i] = p_act_func(m_arr[i]);
+matrix_t* matrix_apply_activation_new(matrix_t* m, double(*p_act_func)(double)){
+
+    const int rows = m->rows;
+    const int cols = m->cols;
+
+    matrix_t* new = matrix_alloc(rows,cols);
+    if(new == NULL){
+        return NULL;
     }
+
+    const int size = rows*cols;
+    double* m_arr = m->data;
+    double* new_arr = new->data;
+
+    for(int i = 0;i<size;++i){
+        new_arr[i] = p_act_func(m_arr[i]);
+    }
+
+
+    return new;
 }
 
 
@@ -160,10 +174,9 @@ matrix_t* matrix_transpose(matrix_t* m){
     const int m_rows = m->rows;
     const int m_cols = m->cols;
 
-    int i  = 0;
-    for(; i<m_rows; ++i){
-        int j = 0;
-        for(; j<m_cols; ++j){
+
+    for(int i = 0; i<m_rows; ++i){
+        for(int j = 0; j<m_cols; ++j){
             mt_arr[j * m_rows + i] = m_arr[i*m_cols+j];
         }
     }
@@ -173,83 +186,85 @@ matrix_t* matrix_transpose(matrix_t* m){
 
 void matrix_add(matrix_t* a, matrix_t* b, matrix_t* out){
     const int size = a->rows*a->cols;
-    int i = 0;
+
     double* a_arr = a->data;
     double* b_arr = b->data;
     double* out_arr = out->data;
-    for(;i<size;++i){
+    for(int i = 0;i<size;++i){
         out_arr[i] = a_arr[i] + b_arr[i];
     }
 }
+
+//subtracts b from a, stored in out
 void matrix_sub(matrix_t* a, matrix_t* b, matrix_t* out){
 
     const int size = a->rows*a->cols;
-    int i = 0;
+
     double* a_arr = a->data;
     double* b_arr = b->data;
     double* out_arr = out->data;
-    for(;i<size;++i){
+    for(int i = 0;i<size;++i){
         out_arr[i] = a_arr[i] - b_arr[i];
     }
 }
 
-void matrix_scalar_mult(matrix_t* a, double scalar){
-    const int size = a->rows*a->cols;
-    int i = 0;
-    double* arr = a->data;
-    for(;i<size;++i){
-        arr[i] *= scalar;
+void matrix_scalar_mult(matrix_t* m, double scalar){
+    const int size = m->rows*m->cols;
+
+    double* m_arr = m->data;
+    for(int i = 0;i<size;++i){
+        m_arr[i] *= scalar;
     }
 }
 void matrix_hadamard(matrix_t* a, matrix_t*b, matrix_t* out){
     const int size = a->rows*a->cols;
-    int i = 0;
+
     double* a_arr = a->data;
     double* b_arr = b->data;
     double* out_arr = out->data;
-    for(;i<size; ++i){
+    for(int i = 0;i<size; ++i){
         out_arr[i] = a_arr[i] * b_arr[i];
     }
 }
 
-void matrix_add_bias(matrix_t* z, const matrix_t* bias){
+void matrix_add_bias(matrix_t* weighted_input, const matrix_t* bias){
 
-    double* b = bias->data;
-    const int rows = z->rows;
-    const int cols = z->cols;
-    double* z_arr = z->data;
-    int i = 0;
-    for(;i< rows; ++i){
-        int j = 0;
-        for(;j<cols;++j){
+    double* bias_arr = bias->data;
+    const int rows = weighted_input->rows;
+    const int cols = weighted_input->cols;
+    double* weighted_input_arr = weighted_input->data;
 
-            z_arr[i*cols+j] = z_arr[i*cols+j] + b[j];
+    for(int i = 0;i< rows; ++i){
+
+        for(int j = 0;j<cols;++j){
+
+            weighted_input_arr[i*cols+j] = weighted_input_arr[i*cols+j] + bias_arr[j];
         }
     }
 }
 
-matrix_t* matrix_sum_rows(matrix_t* x){
-    matrix_t* x_rows_summed = matrix_alloc(1,x->cols);
-    if(x_rows_summed == NULL){
+matrix_t* matrix_sum_rows(matrix_t* m){
+    matrix_t* m_rows_summed = matrix_alloc(1,m->cols);
+    if(m_rows_summed == NULL){
         return NULL;
     }
 
-    double* s_arr = x_rows_summed->data;
-    double* x_arr = x->data;
+    double* sum_arr = m_rows_summed->data;
+    double* mat_arr = m->data;
 
-    const int rows = x->rows;
-    const int cols = x->cols;
-    int j = 0;
+    const int rows = m->rows;
+    const int cols = m->cols;
+
     double sum;
-    for(;j<cols;++j){
+    for(int j = 0;j<cols;++j){
         sum = 0.;
-        int i = 0;
-        for(;i<rows;++i){
-            sum+=x_arr[i*cols+j];
+
+        for(int i = 0;i<rows;++i){
+            sum+=mat_arr[i*cols+j];
         }
-        s_arr[j] = sum;
+        sum_arr[j] = sum;
     }
-    return x_rows_summed;
+    return m_rows_summed;
 }
 
 matrix_t* matrix_copy_alloc_new(matrix_t* src){
