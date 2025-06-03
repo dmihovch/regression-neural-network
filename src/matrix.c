@@ -65,7 +65,7 @@ matrix_t* matrix_mult(matrix_t* a, matrix_t* b){
 
 
 //this is a pure helper function. it can basically be treated as inline code...... I think
-inline void matrix_mult_thread_handler(matrix_t* prod, matrix_t* a, matrix_t* b, const int shared_dimension_size_ab){
+void matrix_mult_thread_handler(matrix_t* prod, matrix_t* a, matrix_t* b, const int shared_dimension_size_ab){
 
     //double start  = get_time_sec();
 
