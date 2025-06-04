@@ -26,6 +26,15 @@ double mean_squared_error_loss(matrix_t *y_true, matrix_t *y_pred){
             const double y_pred = pred_arr[index] * 10000;
             printf("y_true[%d]*10k: %0.10f\ny_pred[%d]*10k: %0.10f\n",index,y_true,index,y_pred);
             */
+            if(true_arr[i*cols+j] > 1){
+
+                printf("true_arr[%d] == %0.5f\n",(i*cols+j), true_arr[i*cols+j]);
+            }
+
+
+            if(pred_arr[i*cols+j] > 1){
+                printf("pred_arr[%d] == %0.5f\n",(i*cols+j), pred_arr[i*cols+j]);
+            }
 
             mse += pow(true_arr[i*cols+j]-pred_arr[i*cols+j],2);
         }
